@@ -45,7 +45,7 @@ module Paperclip
 
         base.instance_eval do
           unless @options[:url].to_s.match(/\A:fog.*url\Z/)
-            @options[:path]  = @options[:path].gsub(/:url/, @options[:url]).gsub(/\A:rails_root\/public\/system\//, '')
+            @options[:path]  = @options[:path].call(self).gsub(/:url/, @options[:url]).gsub(/\A:rails_root\/public\/system\//, '')
             @options[:url]   = ':fog_public_url'
           end
           Paperclip.interpolates(:fog_public_url) do |attachment, style|
